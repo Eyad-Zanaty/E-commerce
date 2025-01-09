@@ -7,12 +7,16 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIV
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 # Home view
+
 def home(request):
     return HttpResponse("Welcome to the E-commerce API!")
 
 # List and Create Products
+@method_decorator(csrf_exempt, name='dispatch')
 class ProductListCreateView(ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -21,6 +25,7 @@ class ProductListCreateView(ListCreateAPIView):
     search_fields = ['name']
 
 # Retrieve, Update, or Delete a Product
+@method_decorator(csrf_exempt, name='dispatch')
 class ProductDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer

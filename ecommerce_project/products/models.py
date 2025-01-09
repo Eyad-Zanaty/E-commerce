@@ -14,7 +14,6 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     stock_quantity = models.PositiveIntegerField()
     image_url = models.URLField()
-    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
